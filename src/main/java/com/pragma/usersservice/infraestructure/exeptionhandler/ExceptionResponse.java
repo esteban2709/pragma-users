@@ -1,7 +1,8 @@
-package com.pragma.powerup.infrastructure.exceptionhandler;
+package com.pragma.usersservice.infraestructure.exeptionhandler;
 
 public enum ExceptionResponse {
-    NO_DATA_FOUND("No data found for the requested petition");
+    NO_DATA_FOUND("No data was found for the requested operation"),
+    USER_NOT_LEGAL_AGE("El usuario debe ser mayor de 18 años para registrarse");
 
     private final String message;
 
@@ -10,6 +11,6 @@ public enum ExceptionResponse {
     }
 
     public String getMessage() {
-        return this.message;
+        return message;
     }
 }

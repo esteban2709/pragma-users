@@ -1,10 +1,11 @@
 package com.pragma.usersservice.infraestructure.out.jpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,17 +14,22 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class UserEntity {
 
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "user_id", nullable = false)
     private Long id;
     private String name;
     private String lastName;
-    private String email;
+    private Long documentId;
+    @Column( length = 13)
+    private String phoneNumber;
+    private Date birthDate;
     private String password;
-    private String phone;
-    private String address;
-    private String city;
-    private String country;
-    private String postalCode;
-    private String state;
-    private String role;
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private RoleEntity role;
+
 }
+

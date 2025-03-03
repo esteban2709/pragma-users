@@ -1,6 +1,7 @@
 package com.pragma.usersservice.domain.spi;
 
-import com.pragma.plazoleta.domain.model.User;
+
+import com.pragma.usersservice.domain.model.User;
 
 import java.util.List;
 

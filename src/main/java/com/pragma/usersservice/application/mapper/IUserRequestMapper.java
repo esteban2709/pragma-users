@@ -1,8 +1,10 @@
 package com.pragma.usersservice.application.mapper;
 
-import com.pragma.plazoleta.application.dto.response.UserResponseDto;
-import com.pragma.plazoleta.domain.model.User;
+
+import com.pragma.usersservice.application.dto.request.UserRequestDto;
+import com.pragma.usersservice.domain.model.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
@@ -10,5 +12,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserRequestMapper {
 
-    User toUser(UserResponseDto userResponseDto);
+    @Mapping(target = "role.id", source = "role")
+    User toUser(UserRequestDto userRequestDto);
 }

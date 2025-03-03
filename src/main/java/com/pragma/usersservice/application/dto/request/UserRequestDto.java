@@ -1,9 +1,9 @@
 package com.pragma.usersservice.application.dto.request;
 
-import com.pragma.plazoleta.domain.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.management.relation.Role;
 import java.util.Date;
 
 @Getter
@@ -11,10 +11,10 @@ import java.util.Date;
 public class UserRequestDto {
     private String name;
     private String lastName;
-    private String documentId;
+    private Long documentId;
     private String phoneNumber;
     private Date birthDate;
     private String password;
     private String email;
-    private Role role;
+    private Long role;
 }

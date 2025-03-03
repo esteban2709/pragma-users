@@ -14,7 +14,7 @@ public class User {
     private Long id;
     private String name;
     private String lastName;
-    private String documentId;
+    private Long documentId;
     private String phoneNumber;
     private Date birthDate;
     private String password;

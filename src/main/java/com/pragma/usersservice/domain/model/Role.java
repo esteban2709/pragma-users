@@ -10,3 +10,5 @@ public class Role {
     private String name;
     private String description;
 }
+// script para crear role propietario
+// insert into role (id, name, description) values (1, 'Propietario', 'propietario de restaurante');

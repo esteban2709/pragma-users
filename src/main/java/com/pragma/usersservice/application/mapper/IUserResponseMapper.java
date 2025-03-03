@@ -1,7 +1,7 @@
 package com.pragma.usersservice.application.mapper;
 
-import com.pragma.plazoleta.application.dto.response.UserResponseDto;
-import com.pragma.plazoleta.domain.model.User;
+import com.pragma.usersservice.application.dto.response.UserResponseDto;
+import com.pragma.usersservice.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

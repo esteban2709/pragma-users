@@ -1,6 +1,6 @@
 package com.pragma.usersservice.domain.spi;
 
-public interface IPasswordEncoder {
+public interface IPasswordEncoderPort {
 
     String encode(String password);
 }
