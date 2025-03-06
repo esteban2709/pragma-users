@@ -1,5 +1,6 @@
 package com.pragma.usersservice.infraestructure.exeptionhandler;
 
+import com.pragma.usersservice.domain.exception.CustomException;
 import com.pragma.usersservice.domain.exception.UserIsNotLegalAge;
 import com.pragma.usersservice.infraestructure.exception.NoDataFoundException;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,13 @@ public class ControllerAdvisor {
             UserIsNotLegalAge ignoredUserIsNotLegalAgeException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.USER_NOT_LEGAL_AGE.getMessage()));
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<Map<String, String>> handleUserIsNotLegalAgeException(
+            CustomException customException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, customException.getMessage()));
     }
     
 }

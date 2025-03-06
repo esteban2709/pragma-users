@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = "Object already exists", content = @Content)
     })
     @PostMapping("/")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
     public ResponseEntity<Void> saveUser(@RequestBody UserRequestDto userRequestDto) {
         userHandler.saveUser(userRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -42,6 +44,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List> findAllUsers() {
         return ResponseEntity.ok(userHandler.findAllUsers());
     }
