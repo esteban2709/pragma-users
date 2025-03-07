@@ -40,8 +40,9 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/webjars/**").permitAll()
-
+                                "/webjars/**"
+                        ).permitAll()
+                        .requestMatchers("/api/v1/users/clients").permitAll()
                         .requestMatchers("/api/v1/users/", "/api/v1/users/**").hasAnyAuthority("ADMIN", "OWNER")
                         .anyRequest().authenticated()
                 )

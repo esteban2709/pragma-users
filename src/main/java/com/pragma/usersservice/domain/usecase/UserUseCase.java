@@ -35,7 +35,7 @@ public class UserUseCase  implements IUserServicePort {
         if (!isUserOlderThan18(user.getBirthDate())) {
             throw new UserIsNotLegalAge();
         }
-        validateRoleAssignment(user);
+        if(user.getRole().getId() != 4) validateRoleAssignment(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userPersistencePort.saveUser(user);
     }
