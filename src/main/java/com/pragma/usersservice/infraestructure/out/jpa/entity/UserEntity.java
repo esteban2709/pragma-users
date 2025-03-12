@@ -2,6 +2,7 @@ package com.pragma.usersservice.infraestructure.out.jpa.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,8 @@ public class UserEntity {
     private String password;
     @NotNull
     private String email;
+    @Null
+    private Long restaurantId;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

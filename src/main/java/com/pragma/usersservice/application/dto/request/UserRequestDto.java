@@ -3,7 +3,6 @@ package com.pragma.usersservice.application.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.management.relation.Role;
 import java.util.Date;
 
 @Getter
@@ -17,4 +16,5 @@ public class UserRequestDto {
     private String password;
     private String email;
     private Long role;
+    private Long restaurantId;
 }

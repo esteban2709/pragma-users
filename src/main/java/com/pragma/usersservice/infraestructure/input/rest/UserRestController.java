@@ -31,9 +31,9 @@ public class UserRestController {
     })
     @PostMapping("/")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
-    public ResponseEntity<Void> saveUser(@RequestBody UserRequestDto userRequestDto) {
-        userHandler.saveUser(userRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto userRequestDto) {
+        UserResponseDto userResponseDto =  userHandler.saveUser(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
 
     @Operation(summary = "Add a new client")
