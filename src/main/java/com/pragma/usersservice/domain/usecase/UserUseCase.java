@@ -2,23 +2,21 @@ package com.pragma.usersservice.domain.usecase;
 
 import com.pragma.usersservice.domain.api.IUserServicePort;
 import com.pragma.usersservice.domain.exception.CustomException;
+import com.pragma.usersservice.domain.exception.ExceptionMessage;
 import com.pragma.usersservice.domain.exception.UserIsNotLegalAge;
 import com.pragma.usersservice.domain.model.User;
 import com.pragma.usersservice.domain.spi.IPasswordEncoderPort;
 import com.pragma.usersservice.domain.spi.ITokenUtilsPort;
 import com.pragma.usersservice.domain.spi.IUserPersistencePort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.pragma.usersservice.domain.utils.Constants;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public class UserUseCase  implements IUserServicePort {
+public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
     private final IPasswordEncoderPort passwordEncoder;
@@ -32,36 +30,36 @@ public class UserUseCase  implements IUserServicePort {
 
     @Override
     public User saveUser(User user) {
-        if (!isUserOlderThan18(user.getBirthDate())) {
-            throw new UserIsNotLegalAge();
-        }
-        if(user.getRole().getId() != 4) validateRoleAssignment(user);
+        validateUser(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userPersistencePort.saveUser(user);
     }
 
+    private void validateUser(User user) {
+        if (!isUserOlderThan18(user.getBirthDate())) {
+            throw new UserIsNotLegalAge();
+        }
+        if (user.getRole().getId() != 4) {
+            validateRoleAssignment(user);
+        }
+    }
+
     private void validateRoleAssignment(User user) {
-        // Get the authenticated user from SecurityContext
         String role = tokenUtilsPort.getRole();
-        // Check role-based permissions
         if ("2".equals(user.getRole().getId().toString())) {
-            // Only ADMIN can create OWNER users
-            boolean isAdmin = "ADMIN".equals(role);
-            if (!isAdmin) {
-                throw new CustomException("Only administrators can create owner accounts");
+            if (!Constants.ADMIN.equals(role)) {
+                throw new CustomException(ExceptionMessage.ONLY_ADMIN_CAN_CREATE_OWNER.getMessage());
             }
         } else if ("3".equals(user.getRole().getId().toString())) {
-            // Only OWNER can create EMPLOYEE users
-            boolean isOwner = "OWNER".equals(role);
-            if (!isOwner) {
-                throw new CustomException("Only owners can create employee accounts");
+            if (!Constants.OWNER.equals(role)) {
+                throw new CustomException(ExceptionMessage.ONLY_OWNER_CAN_CREATE_EMPLOYEE.getMessage());
             }
         }
     }
 
     private boolean isUserOlderThan18(Date birthDate) {
         LocalDate birthLocalDate = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return Period.between(birthLocalDate, LocalDate.now()).getYears() >= 18;
+        return Period.between(birthLocalDate, LocalDate.now()).getYears() >= Constants.MINIMUM_AGE;
     }
 
     @Override

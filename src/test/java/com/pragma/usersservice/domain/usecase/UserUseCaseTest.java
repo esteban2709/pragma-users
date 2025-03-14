@@ -1,4 +1,4 @@
-package com.pragma.usersservice.domain;
+package com.pragma.usersservice.domain.usecase;
 
 import com.pragma.usersservice.domain.exception.CustomException;
 import com.pragma.usersservice.domain.exception.UserIsNotLegalAge;
@@ -7,7 +7,6 @@ import com.pragma.usersservice.domain.model.User;
 import com.pragma.usersservice.domain.spi.IPasswordEncoderPort;
 import com.pragma.usersservice.domain.spi.ITokenUtilsPort;
 import com.pragma.usersservice.domain.spi.IUserPersistencePort;
-import com.pragma.usersservice.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+
 
 @ExtendWith(MockitoExtension.class)
 class UserUseCaseTest {

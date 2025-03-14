@@ -1,12 +1,10 @@
-package com.pragma.usersservice.infraestructure;
+package com.pragma.usersservice.infraestructure.input.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pragma.usersservice.application.dto.request.UserRequestDto;
 import com.pragma.usersservice.application.dto.response.UserResponseDto;
 import com.pragma.usersservice.application.handler.IUserHandler;
 import com.pragma.usersservice.domain.model.Role;
-import com.pragma.usersservice.domain.model.User;
-import com.pragma.usersservice.infraestructure.input.rest.UserRestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,14 +18,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class UserRestControllerTest {
@@ -129,36 +129,4 @@ class UserRestControllerTest {
 
         verify(userHandler).findUserById(userId);
     }
-
-//    @Test
-//    @DisplayName("Should update user")
-//    void updateUserTest() throws Exception {
-//        // Arrange
-//        Long userId = 1L;
-//        when(userHandler.(any(UserRequestDto.class), any(Long.class))).thenReturn(userResponseDto);
-//
-//        // Act & Assert
-//        mockMvc.perform(put("/api/v1/users/{id}", userId)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(userRequestDto)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").value(userResponseDto.getId()))
-//                .andExpect(jsonPath("$.name").value(userResponseDto.getName()))
-//                .andExpect(jsonPath("$.lastName").value(userResponseDto.getLastName()));
-//
-//        verify(userHandler).updateUser(any(UserRequestDto.class), any(Long.class));
-//    }
-
-//    @Test
-//    @DisplayName("Should delete user")
-//    void deleteUserTest() throws Exception {
-//        // Arrange
-//        Long userId = 1L;
-//
-//        // Act & Assert
-//        mockMvc.perform(delete("/api/v1/users/{id}", userId))
-//                .andExpect(status().isNoContent());
-//
-//        verify(userHandler).deleteUser(userId);
-//    }
 }
